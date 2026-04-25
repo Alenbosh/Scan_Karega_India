@@ -1,397 +1,283 @@
 # Scan Karega India (SKI)
 
-## AI-Powered Food Quality Monitoring Platform
+Scan Karega India is a local full-stack prototype for packaged food label analysis. The app lets a user upload a food label image, sends it to a FastAPI backend, extracts product and nutrition details with Gemini Vision, and returns a simple health score with reasons.
 
-**Tagline:** *Scan Karega India, Healthy Banega India.*
+Tagline: Scan Karega India, Healthy Banega India.
 
-Scan Karega India (SKI) is a scalable AI-powered food quality monitoring platform that helps users analyze packaged food products using barcode scanning and image-based label analysis.
+## Current Features
 
-The platform provides instant insights about ingredients, additives, allergens, nutrition quality, and health score.
+- Food label image upload from the browser
+- Drag-and-drop or file picker support for JPEG, PNG, WebP, and GIF images
+- Gemini Vision extraction for product name, brand, ingredients, nutrition values, allergens, additives, and notes
+- Health score calculation from sugar, sodium, saturated fat, fiber, and NOVA processing level
+- React results view with score badge, nutrition table, ingredients, allergens, additives, and extraction confidence
+- FastAPI docs available at `/docs`
+- Demo product endpoint and barcode-scan status scaffold
 
----
+## Tech Stack
 
-# Project Overview
+### Frontend
 
-SKI is designed as a production-ready SaaS platform.
+- React 18
+- Vite
+- Plain CSS
+- Browser `fetch` API
 
-Users can:
+### Backend
 
-* Scan packaged food products
-* Upload food label images
-* Analyze ingredients using AI
-* Understand food quality
-* Get personalized recommendations
-* Track scan history
-* Receive healthier alternatives
+- FastAPI
+- Uvicorn
+- Pydantic
+- HTTPX
+- python-multipart
+- Gemini API for vision-based label extraction
 
----
-
-# Key Features
-
-## Food Barcode Scanning
-
-Scan packaged products using barcode technology.
-
-## OCR Label Detection
-
-Upload food label images and extract ingredients automatically.
-
-## AI Ingredient Analysis
-
-Identify:
-
-* Preservatives
-* Artificial additives
-* Hidden sugars
-* Harmful ingredients
-* Allergens
-
-## Health Score Engine
-
-Generate food quality score based on:
-
-* Sugar level
-* Sodium
-* Processing level
-* Nutritional value
-* Artificial ingredients
-
-## Recommendation Engine
-
-Suggest healthier alternatives and similar products.
-
-## User Dashboard
-
-Users can:
-
-* Save scan history
-* Manage food preferences
-* Track health decisions
-
-## Admin Dashboard
-
-Admins can:
-
-* Manage products
-* Monitor analytics
-* View AI logs
-* Manage users
-
----
-
-# Tech Stack
-
-## Frontend
-
-* React.js
-* Tailwind CSS
-* React Router
-* Axios
-* Redux Toolkit or Zustand
-* Framer Motion
-
-## Backend
-
-* FastAPI
-* Python
-* REST APIs
-* JWT Authentication
-* Async API Architecture
-
-## AI & Machine Learning
-
-* Python
-* TensorFlow / PyTorch
-* Scikit-learn
-* spaCy
-* OpenCV
-* OCR Engine
-
-## Database
-
-* MongoDB
-* PostgreSQL
-* Redis Cache
-
-## Deployment
-
-* Docker
-* AWS
-* Vercel
-* Nginx
-* CI/CD
-
----
-
-# System Architecture
+## Project Structure
 
 ```text
-Frontend → Backend API → AI Engine → Database → Results
+.
+|-- Readme.md
+|-- package.json
+|-- scripts/
+|   `-- dev.sh
+`-- ski-project/
+    |-- backend/
+    |   |-- .env.example
+    |   |-- requirements.txt
+    |   `-- app/
+    |       |-- main.py
+    |       |-- core/
+    |       |   `-- config.py
+    |       |-- models/
+    |       |   `-- product.py
+    |       |-- routes/
+    |       |   |-- health_score.py
+    |       |   |-- image_scan.py
+    |       |   |-- products.py
+    |       |   `-- scan.py
+    |       `-- services/
+    |           `-- health_score.py
+    `-- frontend/
+        |-- .env.example
+        |-- package.json
+        |-- vite.config.js
+        `-- src/
+            |-- App.jsx
+            |-- main.jsx
+            |-- styles.css
+            `-- components/
+                `-- ImageUpload/
+                    `-- ImageUpload.jsx
 ```
 
-### Workflow
+## Prerequisites
 
-1. User scans barcode or uploads food image
-2. Backend processes request
-3. AI engine extracts and analyzes data
-4. Database stores results
-5. Health score is generated
-6. Recommendations are returned to user
+- Node.js and npm
+- Python 3.10+
+- A Gemini API key
 
----
+## Environment Setup
 
-# Folder Structure
-
-```text
-ski-platform/
-│
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   ├── store/
-│   │   ├── hooks/
-│   │   ├── layouts/
-│   │   └── utils/
-│
-├── backend/
-│   ├── app/
-│   │   ├── api/
-│   │   ├── models/
-│   │   ├── schemas/
-│   │   ├── services/
-│   │   ├── middleware/
-│   │   ├── auth/
-│   │   └── database/
-│
-├── ai-engine/
-│   ├── ocr/
-│   ├── ingredient-parser/
-│   ├── health-score/
-│   ├── recommendation-engine/
-│   └── model-training/
-│
-├── database/
-│   ├── mongodb/
-│   ├── postgres/
-│   └── redis/
-│
-├── docker/
-├── deployment/
-├── docs/
-├── .env
-├── docker-compose.yml
-└── README.md
-```
-
----
-
-# Core Modules
-
-## Authentication Module
-
-* User signup/login
-* JWT token generation
-* Role-based authorization
-
-## Product Module
-
-* Barcode lookup
-* Product storage
-* Ingredient retrieval
-
-## AI Analysis Module
-
-* OCR extraction
-* NLP ingredient parsing
-* Food scoring logic
-
-## Recommendation Module
-
-* Alternative product suggestions
-* Personalized recommendations
-
-## Analytics Module
-
-* Usage statistics
-* Food trends
-* User activity tracking
-
----
-
-# API Endpoints
-
-## Authentication
-
-```http
-POST /api/v1/auth/register
-POST /api/v1/auth/login
-```
-
-## Product APIs
-
-```http
-GET /api/v1/products/{barcode}
-POST /api/v1/products/analyze
-```
-
-## AI APIs
-
-```http
-POST /api/v1/ai/analyze-image
-POST /api/v1/ai/health-score
-```
-
-## User APIs
-
-```http
-GET /api/v1/user/profile
-GET /api/v1/user/history
-```
-
----
-
-# Installation Guide
-
-## Clone Repository
+Create the backend environment file:
 
 ```bash
-git clone https://github.com/your-username/ski-platform.git
-cd ski-platform
+cd ski-project/backend
+cp .env.example .env
 ```
 
----
+Set your Gemini key in `ski-project/backend/.env`:
 
-## Backend Setup
+```env
+GEMINI_API_KEY=your-google-gemini-api-key-here
+ALLOWED_ORIGINS=["http://localhost:5173","http://localhost:3000"]
+```
+
+Create the frontend environment file:
 
 ```bash
-cd backend
-python -m venv venv
-source venv/bin/activate
+cd ../frontend
+cp .env.example .env
+```
+
+The default frontend API URL is:
+
+```env
+VITE_API_URL=http://localhost:8000
+```
+
+## Install Dependencies
+
+Install backend dependencies:
+
+```bash
+cd ski-project/backend
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
-uvicorn app.main:app --reload
 ```
 
----
-
-## Frontend Setup
+Install frontend dependencies:
 
 ```bash
-cd frontend
+cd ../frontend
 npm install
+```
+
+## Run Locally
+
+From the repository root, start both the backend and frontend:
+
+```bash
 npm run dev
 ```
 
----
+This runs:
 
-## Database Setup
+- Backend: `http://localhost:8000`
+- Frontend: `http://localhost:5173`
+- API docs: `http://localhost:8000/docs`
 
-Install:
+You can also run each service manually.
 
-* MongoDB
-* PostgreSQL
-* Redis
+Backend:
 
-Update credentials in `.env`
-
----
-
-# Environment Variables
-
-Create `.env` file:
-
-```env
-MONGO_URI=
-POSTGRES_URI=
-JWT_SECRET=
-REDIS_URL=
-AWS_ACCESS_KEY=
-AWS_SECRET_KEY=
-OPENFOOD_API_KEY=
+```bash
+cd ski-project/backend
+source .venv/bin/activate
+uvicorn app.main:app --reload
 ```
 
----
+Frontend:
 
-# Health Score Logic Example
-
-```text
-Sugar High → -2
-High Sodium → -2
-Natural Ingredients → +2
-Low Additives → +1
+```bash
+cd ski-project/frontend
+npm run dev
 ```
 
-Final Score:
+## API Endpoints
 
-```text
-0–2 → Poor
-3–5 → Moderate
-6–8 → Good
-9–10 → Excellent
+### Root
+
+```http
+GET /
 ```
 
----
+Returns a basic API status message.
 
-# AI Workflow
+### Scan
 
-```text
-Image Upload
-↓
-OCR Extraction
-↓
-Ingredient Parsing
-↓
-Risk Detection
-↓
-Score Calculation
-↓
-Recommendation Engine
-↓
-User Dashboard
+```http
+GET /api/scan/
 ```
 
----
+Returns the current barcode scan scaffold status.
 
-# Future Scope
+### Products
 
-* Mobile app support
-* Wearable device integration
-* Personalized nutrition planning
-* Cloud AI inference
-* Marketplace integration
-* Government nutrition collaboration
+```http
+GET /api/products/
+```
 
----
+Returns a demo product.
 
-# Scalability Goals
+### Health Score
 
-Designed to support:
+```http
+POST /api/health-score/
+```
 
-* High traffic
-* Microservice migration
-* Horizontal scaling
-* Cloud-native deployment
-* AI model expansion
+Scores a product payload.
 
----
+Example request body:
 
-# Team
+```json
+{
+  "barcode": "demo-001",
+  "name": "Demo Muesli",
+  "brand": "SKI",
+  "ingredients": "Oats, nuts, seeds, dried fruit",
+  "nutriscore": "b",
+  "nova_group": 3,
+  "nutrition": {
+    "energy_kcal": 372,
+    "fat": 8.4,
+    "saturated_fat": 1.2,
+    "sugars": 7.1,
+    "sodium": 0.08,
+    "fiber": 8.6,
+    "proteins": 10.2
+  }
+}
+```
 
-**Team Name:** Krānti
-**Team Leader:** Koushal Kishor Vishwakarma
+### Image Scan
 
----
+```http
+POST /api/image-scan/
+```
 
-# License
+Accepts a multipart upload with a `file` field. The backend sends the image to Gemini Vision, normalizes extracted nutrition fields, calculates a health score, and returns the product analysis.
+
+Supported file types:
+
+- `image/jpeg`
+- `image/png`
+- `image/webp`
+- `image/gif`
+
+Maximum file size: 10 MB.
+
+## Health Score Logic
+
+The health score starts at 100 and adjusts based on available nutrition data:
+
+- Sugar over 12g per 100g subtracts 25 points
+- Sodium over 600mg per 100g subtracts 20 points
+- Saturated fat over 5g per 100g subtracts 15 points
+- NOVA group 4 subtracts 20 points
+- Fiber of at least 3g per 100g adds 5 points
+
+Score labels:
+
+- `75-100`: Healthy
+- `50-74`: Moderate
+- `0-49`: Needs Caution
+
+## Useful Scripts
+
+From the repository root:
+
+```bash
+npm run dev
+```
+
+Starts both services.
+
+```bash
+npm run verify:env
+```
+
+Checks whether the backend can load `GEMINI_API_KEY` and `ALLOWED_ORIGINS`.
+
+From `ski-project/frontend`:
+
+```bash
+npm run build
+```
+
+Builds the frontend for production.
+
+## Notes
+
+- This project currently uses Gemini for image extraction. It does not include a database, authentication, user history, admin dashboard, or production deployment configuration yet.
+- The barcode scan endpoint is scaffolded and currently returns a readiness message.
+- Nutrition values are expected to be normalized per 100g or 100ml by the image extraction prompt.
+
+## Team
+
+Team Name: Kranti  
+Team Leader: Koushal Kishor Vishwakarma
+
+## License
 
 MIT License
-
----
-
-# Mission
-
-Help users understand food quality instantly using AI-powered insights.
-
-**Scan Karega India, Healthy Banega India.**
