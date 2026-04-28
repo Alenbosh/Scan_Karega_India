@@ -33,5 +33,13 @@ class Settings:
             or os.getenv("ANTHROPIC_API_KEY", "")
         )
 
+        # ⬇️ ADD THESE
+        self.MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
+        self.MONGO_DB_NAME = os.getenv("MONGO_DB_NAME", "ski_db")
+        self.ACCESS_TOKEN_EXPIRE_MINUTES = int(
+            os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60))
+        self.ALGORITHM = os.getenv("ALGORITHM", "HS256")
+        self.SECRET_KEY = os.getenv("SECRET_KEY", "change-me-in-production")
+
 
 settings = Settings()

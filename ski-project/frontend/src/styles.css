@@ -1,83 +1,28 @@
-:root {
-  --font-sans: "Segoe UI", "Helvetica Neue", sans-serif;
-  --color-background-primary: #ffffff;
-  --color-background-secondary: #f7f7f2;
-  --color-border-secondary: #cfd8cc;
-  --color-border-tertiary: #e2e8df;
-  --color-text-primary: #1f2937;
-  --color-text-secondary: #5b6470;
-  color: var(--color-text-primary);
-  background:
-    radial-gradient(circle at top right, rgba(22, 163, 74, 0.14), transparent 28%),
-    linear-gradient(180deg, #f6fbf5 0%, #eef4ea 100%);
-  font-family: var(--font-sans);
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-* {
-  box-sizing: border-box;
-}
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
-body {
-  margin: 0;
-  min-width: 320px;
-}
-
-#root {
-  min-height: 100vh;
-}
-
-.app-shell {
-  min-height: 100vh;
-  padding: 40px 16px 64px;
-}
-
-.hero {
-  max-width: 760px;
-  margin: 0 auto 24px;
-  text-align: center;
-}
-
-.eyebrow {
-  margin: 0 0 10px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #15803d;
-}
-
-.hero h1 {
-  margin: 0;
-  font-size: clamp(2rem, 5vw, 3.6rem);
-  line-height: 1.05;
-}
-
-.subtitle {
-  max-width: 600px;
-  margin: 14px auto 0;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--color-text-secondary);
-}
-
-.panel {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 12px;
-  border: 1px solid rgba(21, 128, 61, 0.12);
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 24px 60px rgba(31, 41, 55, 0.08);
-  backdrop-filter: blur(8px);
-}
-
-@media (max-width: 640px) {
-  .app-shell {
-    padding-top: 24px;
+@layer base {
+  :root {
+    --color-brand: #16a34a;
   }
+  body {
+    @apply bg-white text-gray-900 font-sans antialiased;
+  }
+  .dark body {
+    @apply bg-gray-950 text-gray-100;
+  }
+}
 
-  .panel {
-    padding: 8px;
-    border-radius: 20px;
+@layer components {
+  .card {
+    @apply bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-4;
+  }
+  .btn-primary {
+    @apply bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl px-4 py-2.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-ghost {
+    @apply bg-transparent border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl px-4 py-2.5 transition-colors;
   }
 }
